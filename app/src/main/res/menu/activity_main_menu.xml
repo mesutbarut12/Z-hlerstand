@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Zählerstand hinzufügen"
+        android:id="@+id/activity_main_menu_hinzufügen"
+        ></item>
+
+
+</menu>
