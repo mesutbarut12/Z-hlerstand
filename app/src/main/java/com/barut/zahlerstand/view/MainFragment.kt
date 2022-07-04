@@ -35,13 +35,13 @@ class MainFragment : Fragment() {
         return view
     }
 
-    fun init(view : View){
+    private fun init(view : View){
         viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
         viewmodel?.setData()
 
         recyclerView = view.findViewById(R.id.fragment_main_recylcerview)
     }
-    fun observeData(){
+    private fun observeData(){
         viewmodel?.liveData?.observe(viewLifecycleOwner,Observer{
            recyclerView?.adapter = MainFragmentAdapter(it)
            recyclerView?.layoutManager = LinearLayoutManager(context!!)

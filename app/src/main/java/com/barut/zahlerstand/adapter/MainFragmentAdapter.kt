@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.model.MainFragmentModel
+import com.barut.zahlerstand.view.MainFragmentDirections
 
 class MainFragmentAdapter(val values : ArrayList<MainFragmentModel>)
     : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentHolder>() {
@@ -26,6 +28,18 @@ class MainFragmentAdapter(val values : ArrayList<MainFragmentModel>)
     override fun onBindViewHolder(holder: MainFragmentHolder, position: Int) {
         holder.date.setText(values.get(position).date)
         holder.type.setText(values.get(position).type)
+
+        holder.itemView.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
+                values.get(position).uuid,
+                values.get(position).id,
+                values.get(position).price,
+                values.get(position).date,
+                values.get(position).zaehlerstand,
+                values.get(position).type
+            )
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {

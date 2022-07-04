@@ -9,5 +9,33 @@
         android:id="@+id/mainFragment"
         android:name="com.barut.zahlerstand.view.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.barut.zahlerstand.view.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="uuid"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="zaehlerstand"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
 </navigation>
