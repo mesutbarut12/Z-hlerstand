@@ -4,7 +4,7 @@ plugins {
 
     //Navigation
     id("androidx.navigation.safeargs.kotlin")
-    //
+    //Kapt
     id 'kotlin-kapt'
 
 
@@ -38,6 +38,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildscript {
+        ext.kotlin_version = '1.4.0'
+    }
 }
 
 dependencies {
@@ -57,9 +60,23 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
+    //Viewmodel || LiveData
     def lifecycle_version = "2.6.0-alpha01"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+    //Room Database
+    def roomVersion = "2.4.2"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    //Couronties
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
 
 
 
