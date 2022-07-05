@@ -3,7 +3,7 @@
 
     <item
         android:title="Zählerstand hinzufügen"
-        android:id="@+id/activity_main_menu_hinzufügen"
+        android:id="@+id/main_fragment_menu_add"
         ></item>
 
 

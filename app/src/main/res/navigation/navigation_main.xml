@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -38,4 +41,9 @@
             android:name="type"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.barut.zahlerstand.view.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
 </navigation>

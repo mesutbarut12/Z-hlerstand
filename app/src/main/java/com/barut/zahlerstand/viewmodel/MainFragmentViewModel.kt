@@ -14,14 +14,6 @@ class MainFragmentViewModel(application: Application) : BaseViewModel(applicatio
     var liveData: MutableLiveData<List<MainFragmentModel>>? = MutableLiveData()
 
     init {
-        storeInSQLite(arrayListOf(MainFragmentModel(
-            null,
-            "1000",
-            "10",
-            "123",
-            "05.07.2022",
-            "Strom"
-        )))
         getAllDatasFromSQLite()
     }
 
