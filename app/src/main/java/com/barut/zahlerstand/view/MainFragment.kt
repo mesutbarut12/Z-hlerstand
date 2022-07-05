@@ -2,6 +2,7 @@ package com.barut.zahlerstand.view
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -13,12 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.adapter.MainFragmentAdapter
+import com.barut.zahlerstand.viewmodel.AddItemViewModel
 import com.barut.zahlerstand.viewmodel.MainFragmentViewModel
 
 
 class MainFragment : Fragment() {
 
-    var viewmodel : MainFragmentViewModel? = null
+    var viewmodelMainFragment : MainFragmentViewModel? = null
     var recyclerView : RecyclerView? = null
 
 
@@ -34,18 +36,20 @@ class MainFragment : Fragment() {
         return view
     }
 
+
+
     private fun init(view : View){
-        viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+        viewmodelMainFragment = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
 
         recyclerView = view.findViewById(R.id.fragment_main_recylcerview)
     }
     private fun observeData(){
-        viewmodel?.liveData?.observe(viewLifecycleOwner,Observer{
+        viewmodelMainFragment?.liveData?.observe(viewLifecycleOwner,Observer{
            recyclerView?.adapter = MainFragmentAdapter(it)
            recyclerView?.layoutManager = LinearLayoutManager(context!!)
         })
-    }
 
+    }
     private fun createMenu(){
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider{
@@ -57,7 +61,8 @@ class MainFragment : Fragment() {
                 return when(menuItem.itemId){
                     R.id.main_fragment_menu_add -> {
                         val action = MainFragmentDirections.actionMainFragmentToAddItemFragment()
-                        Navigation.findNavController(view!!).navigate(action)
+                        val navigation = Navigation.findNavController(view!!)
+                        navigation.navigate(action)
                         true
                     }
                     else -> false

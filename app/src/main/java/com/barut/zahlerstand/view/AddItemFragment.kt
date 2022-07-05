@@ -3,21 +3,32 @@ package com.barut.zahlerstand.view
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.PopUpToBuilder
+import com.barut.zahlerstand.DatePicker
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.model.MainFragmentModel
+import com.barut.zahlerstand.viewmodel.AddItemViewModel
 
 class AddItemFragment : Fragment() {
 
     private var zahelerstand: EditText? = null
     private var price: EditText? = null
     private var date: EditText? = null
+    private var type: EditText? = null
+    private var buton: Button? = null
 
     private var zaehlerstandText: String? = null
     private var priceText: String? = null
     private var dateText: String? = null
+    private var typeText: String? = null
+
+    private var viewModel: AddItemViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,33 +42,88 @@ class AddItemFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_item, container, false)
         initViews(view)
+        startFragment()
+        dateClickListener()
+        popUpMenu()
         return view
     }
 
     private fun initViews(view: View) {
-        zahelerstand = view.findViewById(R.id.add_item_fragment_zaehlerstand)
+        zahelerstand = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang)
         price = view.findViewById(R.id.add_item_fragment_price)
         date = view.findViewById(R.id.add_item_fragment_date)
-
+        type = view.findViewById(R.id.add_item_fragment_type)
+        buton = view.findViewById(R.id.add_item_fragment_save)
+    }
+    private fun checkInputIsCorrectly(): Boolean {
         zaehlerstandText = zahelerstand?.text.toString()
         priceText = price?.text.toString()
         dateText = date?.text.toString()
-    }
+        typeText = type?.text.toString()
 
-    private fun checkInputIsCorrectly() {
         if (
             zaehlerstandText!!.isNotEmpty() &&
             priceText!!.isNotEmpty() &&
-            dateText!!.isNotEmpty()
-        ){
-
-
-
+            dateText!!.isNotEmpty() &&
+            typeText!!.isNotEmpty()
+        ) {
+            return true
         } else {
-            Toast.makeText(context,"Sei dir sicher das alle Felder ausgefüllt sind",
-            Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context, "Sei dir sicher das alle Felder ausgefüllt sind",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+    }
+    fun startFragment() {
+        buton?.setOnClickListener {
+            var checked = checkInputIsCorrectly()
+            if (checked == true) {
+                viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
+                var model = MainFragmentModel(
+                    null, zaehlerstandText, priceText,
+                    "1", dateText, typeText
+                )
+                viewModel!!.setDatasInSQLITE(arrayListOf(model))
+                val action = AddItemFragmentDirections.actionAddItemFragmentToMainFragment()
+                Navigation.findNavController(it).navigate(action)
+            }
+        }
+    }
+    fun dateClickListener() {
+        var datepicker = DatePicker(context!!, date!!)
+        date?.setText(datepicker.getTodaysDate().toString())
+        date?.setOnClickListener {
+            datepicker.initDatePicker()
+
+
+        }
+    }
+    fun popUpMenu() {
+        type?.setOnClickListener {
+            var popupMenu: PopupMenu = PopupMenu(context, it)
+            popupMenu.inflate(R.menu.add_item_fragment_pop_up_menu)
+            popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                override fun onMenuItemClick(p0: MenuItem?): Boolean {
+                    return when (p0?.itemId) {
+                        R.id.add_item_fragment_pop_up_menu_strom -> {
+                            type?.setText("Strom")
+                            true
+                        }
+                        R.id.add_item_fragment_pop_up_menu_gas -> {
+                            type?.setText("Gas")
+                            true
+                        }
+                        else -> false
+                    }
+
+                }
+            })
+            popupMenu.show()
         }
     }
 
+    
 
 }

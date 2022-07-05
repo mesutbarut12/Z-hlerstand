@@ -31,11 +31,11 @@ class MainFragmentAdapter(val values : List<MainFragmentModel>)
 
         holder.itemView.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
-                values.get(position).uuid.toString(),
+                values.get(position).zaehlerstandNach.toString(),
                 values.get(position).id.toString(),
                 values.get(position).price.toString(),
                 values.get(position).date.toString(),
-                values.get(position).zaehlerstand.toString(),
+                values.get(position).zaehlerstandVor.toString(),
                 values.get(position).type.toString()
             )
             Navigation.findNavController(it).navigate(action)

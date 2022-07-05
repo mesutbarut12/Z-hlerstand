@@ -8,12 +8,12 @@ import androidx.room.PrimaryKey
 data class MainFragmentModel(
     @PrimaryKey(autoGenerate = true)
     var id : Long?,
-    @ColumnInfo(name = "zaehlerstand")
-    var zaehlerstand : String?,
+    @ColumnInfo(name = "zaehlerstandVor")
+    var zaehlerstandVor : String?,
     @ColumnInfo(name = "price")
     var price : String?,
-    @ColumnInfo(name = "uuid")
-    var uuid : String?,
+    @ColumnInfo(name = "zaehlerstandNach")
+    var zaehlerstandNach : String?,
     @ColumnInfo(name = "date")
     var date : String?,
     @ColumnInfo(name = "type")

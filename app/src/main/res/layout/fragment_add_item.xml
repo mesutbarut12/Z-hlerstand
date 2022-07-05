@@ -7,19 +7,34 @@
     tools:context=".view.AddItemFragment">
 
     <EditText
-        android:id="@+id/add_item_fragment_zaehlerstand"
+        android:id="@+id/add_item_fragment_zaehlerstand_anfang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Zählerstand"
+        android:hint="Zählerstand anfang"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_zaehlerstand_ende"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/add_item_fragment_zaehlerstand_ende"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Zählerstand ende"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_zaehlerstand_anfang" />
 
     <EditText
         android:id="@+id/add_item_fragment_price"
@@ -32,9 +47,9 @@
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_zaehlerstand" />
+        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_zaehlerstand_ende" />
 
     <EditText
         android:id="@+id/add_item_fragment_date"
@@ -42,10 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:focusable="false"
         android:hint="Datum"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_save"
+        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +74,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Speichern"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_type" />
+
+    <EditText
+        android:id="@+id/add_item_fragment_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Type"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

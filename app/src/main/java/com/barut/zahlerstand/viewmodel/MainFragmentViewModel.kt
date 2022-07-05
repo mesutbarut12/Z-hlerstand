@@ -17,16 +17,6 @@ class MainFragmentViewModel(application: Application) : BaseViewModel(applicatio
         getAllDatasFromSQLite()
     }
 
-
-
-    fun storeInSQLite(model : ArrayList<MainFragmentModel>) {
-        launch {
-            val dao = DatabaseZaehlerstand(getApplication()).dao()
-            val listLong = dao.insertAll(*model.toTypedArray())
-
-        }
-    }
-
     fun getAllDatasFromSQLite(){
         launch {
             val dao = DatabaseZaehlerstand(getApplication()).dao().getAllDatas()
