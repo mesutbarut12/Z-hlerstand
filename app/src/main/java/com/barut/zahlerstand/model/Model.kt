@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class MainFragmentModel(
     @PrimaryKey(autoGenerate = true)
-    var id : String?,
-    @ColumnInfo(name = "zählerstand")
+    var id : Long?,
+    @ColumnInfo(name = "zaehlerstand")
     var zaehlerstand : String?,
     @ColumnInfo(name = "price")
     var price : String?,

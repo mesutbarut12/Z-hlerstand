@@ -10,7 +10,7 @@ import com.barut.zahlerstand.R
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.view.MainFragmentDirections
 
-class MainFragmentAdapter(val values : ArrayList<MainFragmentModel>)
+class MainFragmentAdapter(val values : List<MainFragmentModel>)
     : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentHolder>() {
 
     class MainFragmentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
