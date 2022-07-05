@@ -37,7 +37,6 @@ class MainFragment : Fragment() {
 
     private fun init(view : View){
         viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
-        viewmodel?.setData()
 
         recyclerView = view.findViewById(R.id.fragment_main_recylcerview)
     }
