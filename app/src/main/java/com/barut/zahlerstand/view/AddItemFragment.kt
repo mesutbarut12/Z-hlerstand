@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.PopUpToBuilder
 import com.barut.zahlerstand.DatePicker
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.model.MainFragmentModel
@@ -17,13 +16,15 @@ import com.barut.zahlerstand.viewmodel.AddItemViewModel
 
 class AddItemFragment : Fragment() {
 
-    private var zahelerstand: EditText? = null
+    private var zahelerstandAnfang: EditText? = null
+    private var zahelerstandEnde: EditText? = null
     private var price: EditText? = null
     private var date: EditText? = null
     private var type: EditText? = null
     private var buton: Button? = null
 
-    private var zaehlerstandText: String? = null
+    private var zaehlerstandTextAnfang: String? = null
+    private var zaehlerstandTextEnde: String? = null
     private var priceText: String? = null
     private var dateText: String? = null
     private var typeText: String? = null
@@ -49,20 +50,22 @@ class AddItemFragment : Fragment() {
     }
 
     private fun initViews(view: View) {
-        zahelerstand = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang)
+        zahelerstandAnfang = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang)
+        zahelerstandEnde = view.findViewById(R.id.add_item_fragment_zaehlerstand_ende)
         price = view.findViewById(R.id.add_item_fragment_price)
         date = view.findViewById(R.id.add_item_fragment_date)
         type = view.findViewById(R.id.add_item_fragment_type)
         buton = view.findViewById(R.id.add_item_fragment_save)
     }
     private fun checkInputIsCorrectly(): Boolean {
-        zaehlerstandText = zahelerstand?.text.toString()
+        zaehlerstandTextAnfang = zahelerstandAnfang?.text.toString()
+        zaehlerstandTextEnde = zahelerstandEnde?.text.toString()
         priceText = price?.text.toString()
         dateText = date?.text.toString()
         typeText = type?.text.toString()
 
         if (
-            zaehlerstandText!!.isNotEmpty() &&
+            zaehlerstandTextAnfang!!.isNotEmpty() &&
             priceText!!.isNotEmpty() &&
             dateText!!.isNotEmpty() &&
             typeText!!.isNotEmpty()
@@ -82,8 +85,8 @@ class AddItemFragment : Fragment() {
             if (checked == true) {
                 viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
                 var model = MainFragmentModel(
-                    null, zaehlerstandText, priceText,
-                    "1", dateText, typeText
+                    null, zaehlerstandTextAnfang, priceText,
+                    zaehlerstandTextEnde, dateText, typeText
                 )
                 viewModel!!.setDatasInSQLITE(arrayListOf(model))
                 val action = AddItemFragmentDirections.actionAddItemFragmentToMainFragment()
@@ -124,6 +127,6 @@ class AddItemFragment : Fragment() {
         }
     }
 
-    
+
 
 }
