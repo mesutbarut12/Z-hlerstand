@@ -15,4 +15,8 @@ class AddItemViewModel(application: Application) : BaseViewModel(application) {
             dao.insertAll(*model.toTypedArray())
         }
     }
+
+    fun checkAnfangValueNotBiggerEndeValue(anfang : String,ende : String) : Boolean{
+        return anfang.toDouble() < ende.toDouble()
+    }
 }

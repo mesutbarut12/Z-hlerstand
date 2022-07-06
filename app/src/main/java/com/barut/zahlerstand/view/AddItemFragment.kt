@@ -80,17 +80,26 @@ class AddItemFragment : Fragment() {
         }
     }
     fun startFragment() {
+        viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
         buton?.setOnClickListener {
             var checked = checkInputIsCorrectly()
             if (checked == true) {
-                viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
-                var model = MainFragmentModel(
-                    null, zaehlerstandTextAnfang, priceText,
-                    zaehlerstandTextEnde, dateText, typeText
+                var checkValues = viewModel?.checkAnfangValueNotBiggerEndeValue(
+                    zaehlerstandTextAnfang!!,
+                    zaehlerstandTextEnde!!
                 )
-                viewModel!!.setDatasInSQLITE(arrayListOf(model))
-                val action = AddItemFragmentDirections.actionAddItemFragmentToMainFragment()
-                Navigation.findNavController(it).navigate(action)
+                if (checkValues == true) {
+                    var model = MainFragmentModel(
+                        null, zaehlerstandTextAnfang, priceText,
+                        zaehlerstandTextEnde, dateText, typeText
+                    )
+                    viewModel!!.setDatasInSQLITE(arrayListOf(model))
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToMainFragment()
+                    Navigation.findNavController(it).navigate(action)
+                } else {
+                    Toast.makeText(context,"der Anfang wert muss kleiner als der entwert sein!!",
+                    Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

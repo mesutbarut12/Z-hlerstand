@@ -14,13 +14,17 @@ class DetailsFragment : Fragment() {
     private var idView : TextView? = null
     private var priceView : TextView? = null
     private var dateView : TextView? = null
-    private var zaehlerstandView : TextView? = null
+    private var zaehlerstandAnfangView : TextView? = null
+    private var zaehlerstandEndeView : TextView? = null
+    private var zaehlerstandVerbrauchView : TextView? = null
 
     private var type : String? = ""
     private var id : String? = ""
     private var price : String? = ""
     private var date : String? = ""
-    private var zaehlerstand : String? = ""
+    private var zaehlerstandAnfang : String? = ""
+    private var zaehlerstandEnde : String? = ""
+    private var zaehlerstandVerbrauch : String? = ""
     private var uuid : String? =  ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +46,9 @@ class DetailsFragment : Fragment() {
         idView = view.findViewById(R.id.details_fragment_id)
         priceView = view.findViewById(R.id.details_fragment_price)
         dateView = view.findViewById(R.id.details_fragment_date)
-        zaehlerstandView = view.findViewById(R.id.details_fragment_zaehlerstand)
+        zaehlerstandAnfangView = view.findViewById(R.id.details_fragment_zaehlerstand_anfang)
+        zaehlerstandEndeView = view.findViewById(R.id.details_fragment_zaehlerstand_ende)
+        zaehlerstandVerbrauchView = view.findViewById(R.id.details_fragment_zaehlerstand_verbrauch)
     }
     private fun getDataFromMainFragment(){
         arguments?.let {
@@ -50,14 +56,19 @@ class DetailsFragment : Fragment() {
             id = DetailsFragmentArgs.fromBundle(it).id
             price = DetailsFragmentArgs.fromBundle(it).price
             date = DetailsFragmentArgs.fromBundle(it).date
-            zaehlerstand = DetailsFragmentArgs.fromBundle(it).zaehlerstand
+            zaehlerstandAnfang = DetailsFragmentArgs.fromBundle(it).zaehlerstandAnfang
+            zaehlerstandEnde = DetailsFragmentArgs.fromBundle(it).zaehlerstandEnde
             uuid = DetailsFragmentArgs.fromBundle(it).uuid
+
+            var verbrauch = zaehlerstandEnde?.toDouble()!! - zaehlerstandAnfang?.toDouble()!!
 
             typeView?.text = type
             idView?.text = id
-            priceView?.text = price
+            priceView?.text = price + "€"
             dateView?.text = date
-            zaehlerstandView?.text = zaehlerstand
+            zaehlerstandAnfangView?.text = zaehlerstandAnfang + " kWh"
+            zaehlerstandEndeView?.text = zaehlerstandEnde + " kWh"
+            zaehlerstandVerbrauchView?.text = verbrauch.toString() + " kWh"
         }
     }
 

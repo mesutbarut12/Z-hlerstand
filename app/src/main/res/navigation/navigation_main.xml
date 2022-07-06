@@ -35,10 +35,13 @@
             android:name="date"
             app:argType="string" />
         <argument
-            android:name="zaehlerstand"
+            android:name="zaehlerstandAnfang"
             app:argType="string" />
         <argument
             android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="zaehlerstandEnde"
             app:argType="string" />
     </fragment>
     <fragment

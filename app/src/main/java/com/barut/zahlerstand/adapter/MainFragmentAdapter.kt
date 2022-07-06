@@ -36,7 +36,8 @@ class MainFragmentAdapter(val values : List<MainFragmentModel>)
                 values.get(position).price.toString(),
                 values.get(position).date.toString(),
                 values.get(position).zaehlerstandVor.toString(),
-                values.get(position).type.toString()
+                values.get(position).type.toString(),
+                values.get(position).zaehlerstandNach.toString()
             )
             Navigation.findNavController(it).navigate(action)
         }
