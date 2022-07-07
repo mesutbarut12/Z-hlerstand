@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.barut.zahlerstand.DatePicker
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.model.MainFragmentModel
-import com.barut.zahlerstand.viewmodel.AddItemViewModel
+import com.barut.zahlerstand.viewmodel.AddItemFragmentViewModel
 
 class AddItemFragment : Fragment() {
 
@@ -29,7 +29,7 @@ class AddItemFragment : Fragment() {
     private var dateText: String? = null
     private var typeText: String? = null
 
-    private var viewModel: AddItemViewModel? = null
+    private var viewModel: AddItemFragmentViewModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +80,7 @@ class AddItemFragment : Fragment() {
         }
     }
     fun startFragment() {
-        viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AddItemFragmentViewModel::class.java)
         buton?.setOnClickListener {
             var checked = checkInputIsCorrectly()
             if (checked == true) {

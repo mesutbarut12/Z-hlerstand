@@ -2,7 +2,6 @@ package com.barut.zahlerstand.view
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.adapter.MainFragmentAdapter
-import com.barut.zahlerstand.viewmodel.AddItemViewModel
 import com.barut.zahlerstand.viewmodel.MainFragmentViewModel
 
 

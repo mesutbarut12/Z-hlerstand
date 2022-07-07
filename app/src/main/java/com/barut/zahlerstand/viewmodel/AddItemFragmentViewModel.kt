@@ -7,7 +7,7 @@ import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.room.DatabaseZaehlerstand
 import kotlinx.coroutines.launch
 
-class AddItemViewModel(application: Application) : BaseViewModel(application) {
+class AddItemFragmentViewModel(application: Application) : BaseViewModel(application) {
 
     fun setDatasInSQLITE(model : ArrayList<MainFragmentModel>) {
         launch {

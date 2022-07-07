@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.viewmodel.DetailsFragmentViewModel
 
 class DetailsFragment : Fragment() {
 
@@ -17,6 +19,7 @@ class DetailsFragment : Fragment() {
     private var zaehlerstandAnfangView : TextView? = null
     private var zaehlerstandEndeView : TextView? = null
     private var zaehlerstandVerbrauchView : TextView? = null
+    private var resultView : TextView? = null
 
     private var type : String? = ""
     private var id : String? = ""
@@ -26,6 +29,9 @@ class DetailsFragment : Fragment() {
     private var zaehlerstandEnde : String? = ""
     private var zaehlerstandVerbrauch : String? = ""
     private var uuid : String? =  ""
+    private var result : String? = ""
+
+    private var viewmodel : DetailsFragmentViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,9 @@ class DetailsFragment : Fragment() {
         zaehlerstandAnfangView = view.findViewById(R.id.details_fragment_zaehlerstand_anfang)
         zaehlerstandEndeView = view.findViewById(R.id.details_fragment_zaehlerstand_ende)
         zaehlerstandVerbrauchView = view.findViewById(R.id.details_fragment_zaehlerstand_verbrauch)
+        resultView = view.findViewById(R.id.details_fragment_result)
+
+        viewmodel = ViewModelProvider(this).get(DetailsFragmentViewModel::class.java)
     }
     private fun getDataFromMainFragment(){
         arguments?.let {
@@ -60,7 +69,8 @@ class DetailsFragment : Fragment() {
             zaehlerstandEnde = DetailsFragmentArgs.fromBundle(it).zaehlerstandEnde
             uuid = DetailsFragmentArgs.fromBundle(it).uuid
 
-            var verbrauch = zaehlerstandEnde?.toDouble()!! - zaehlerstandAnfang?.toDouble()!!
+            var consum = viewmodel?.getConsum(zaehlerstandAnfang!!, zaehlerstandEnde!!)
+            var result = viewmodel?.getResult(consum!!,price!!)
 
             typeView?.text = type
             idView?.text = id
@@ -68,11 +78,12 @@ class DetailsFragment : Fragment() {
             dateView?.text = date
             zaehlerstandAnfangView?.text = zaehlerstandAnfang + " kWh"
             zaehlerstandEndeView?.text = zaehlerstandEnde + " kWh"
-            zaehlerstandVerbrauchView?.text = verbrauch.toString() + " kWh"
+            zaehlerstandVerbrauchView?.text = consum.toString() + " kWh"
+            resultView?.text = result + "€"
         }
     }
 
-
+cd 
 
 
 }
