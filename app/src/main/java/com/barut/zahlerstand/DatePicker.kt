@@ -6,10 +6,10 @@ import android.content.Context
 import android.widget.EditText
 import java.util.*
 
-class DatePicker(private val context: Context,private  val input: EditText) {
+class DatePicker(private val context: Context) {
     private var datePickerDialog: DatePickerDialog? = null
 
-    fun initDatePicker() {
+    fun initDatePicker(input: EditText) {
         val dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             var month = month
             month += 1

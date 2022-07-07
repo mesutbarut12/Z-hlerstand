@@ -7,9 +7,13 @@ class DetailsFragmentViewModel(application: Application) : BaseViewModel(applica
     fun getConsum(zaehlerstandAnfang : String, zaehlerstandEnde: String) : String {
         return (zaehlerstandEnde?.toDouble()!! - zaehlerstandAnfang?.toDouble()!!).toString()
     }
-    fun getResult(consum : String, price : String) : String{
+    fun getKiloPrice(consum : String, price : String) : String{
         return (consum.toDouble() * price.toDouble()).toString()
     }
+    fun getResult(kiloPrice : String, basePrice : String) : String{
+        return (kiloPrice.toDouble() + basePrice.toDouble()).toString()
+    }
+
 
 
 }

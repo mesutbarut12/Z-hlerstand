@@ -41,7 +41,8 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
                 values.get(position).date.toString(),
                 values.get(position).zaehlerstandVor.toString(),
                 values.get(position).type.toString(),
-                values.get(position).zaehlerstandNach.toString()
+                values.get(position).zaehlerstandNach.toString(),
+                values.get(position).basePrice.toString()
             )
             Navigation.findNavController(it).navigate(action)
         }

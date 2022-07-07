@@ -43,6 +43,9 @@
         <argument
             android:name="zaehlerstandEnde"
             app:argType="string" />
+        <argument
+            android:name="basePrice"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"

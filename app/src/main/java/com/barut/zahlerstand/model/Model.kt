@@ -10,10 +10,12 @@ data class MainFragmentModel(
     var id : Long?,
     @ColumnInfo(name = "zaehlerstandVor")
     var zaehlerstandVor : String?,
-    @ColumnInfo(name = "price")
-    var price : String?,
     @ColumnInfo(name = "zaehlerstandNach")
     var zaehlerstandNach : String?,
+    @ColumnInfo(name = "price")
+    var price : String?,
+    @ColumnInfo(name = "basePrice")
+    var basePrice : String?,
     @ColumnInfo(name = "date")
     var date : String?,
     @ColumnInfo(name = "type")

@@ -19,4 +19,14 @@ class AddItemFragmentViewModel(application: Application) : BaseViewModel(applica
     fun checkAnfangValueNotBiggerEndeValue(anfang : String,ende : String) : Boolean{
         return anfang.toDouble() < ende.toDouble()
     }
+
+    fun calculateSwitch(b : Boolean,value : String) : Double{
+        var result = 0.0
+        if(b){
+            result = value.toDouble() / 12.0
+            return result
+        } else {
+            return value.toDouble()
+        }
+    }
 }

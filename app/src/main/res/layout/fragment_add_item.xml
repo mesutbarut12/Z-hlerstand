@@ -13,6 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
@@ -29,7 +30,7 @@
 
             <EditText
                 android:id="@+id/add_item_fragment_zaehlerstand_anfang"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:gravity="center"
@@ -37,7 +38,24 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_item_fragment_zaehlerstand_anfang_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/add_item_fragment_zaehlerstand_anfang_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:text="03.06.2022"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add_item_fragment_zaehlerstand_anfang"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -63,7 +81,7 @@
 
             <EditText
                 android:id="@+id/add_item_fragment_zaehlerstand_ende"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:gravity="center"
@@ -71,7 +89,24 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/add_item_fragment_zaehlerstand_ende_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02.05.2022"
+                android:focusable="false"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add_item_fragment_zaehlerstand_ende"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -84,7 +119,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_cardview4"
+        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_cardview7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_cardview2">
@@ -95,16 +130,69 @@
             android:background="@color/green_500">
 
             <EditText
-                android:id="@+id/add_item_fragment_price"
+                android:id="@+id/add_item_fragment_price_kilo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Preis"
+                android:hint="Preis je kilo"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/add_item_fragment_cardview7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_cardview4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_cardview3">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/green_500">
+
+            <Switch
+                android:id="@+id/add_item_fragment_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_item_fragment_basePrice"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/add_item_fragment_basePrice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Grundpreis"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add_item_fragment_switch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -121,7 +209,7 @@
         app:layout_constraintBottom_toTopOf="@+id/add_item_fragment_cardview5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_cardview3">
+        app:layout_constraintTop_toBottomOf="@+id/add_item_fragment_cardview7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -140,7 +228,11 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -184,6 +276,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
