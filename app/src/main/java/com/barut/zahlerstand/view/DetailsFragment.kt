@@ -83,7 +83,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-cd 
+
 
 
 }

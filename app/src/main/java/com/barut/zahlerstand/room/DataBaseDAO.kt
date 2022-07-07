@@ -20,7 +20,7 @@ interface DataBaseDAO {
     suspend fun deleteAll()
 
     @Query("DELETE FROM MainFragmentModel WHERE id= :id1")
-    suspend fun deleteItem(id1 : String)
+    suspend fun deleteItem(id1 : Long)
 
 
 }
