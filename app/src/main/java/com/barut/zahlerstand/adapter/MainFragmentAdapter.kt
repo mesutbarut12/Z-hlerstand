@@ -11,17 +11,17 @@ import com.barut.zahlerstand.R
 import com.barut.zahlerstand.databinding.MainFragmentRecylerviewRowBinding
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.view.MainFragmentDirections
+import kotlinx.android.synthetic.main.main_fragment_recylerview_row.view.*
 
-class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
-    : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentHolder>() {
-
-
-
-    private lateinit var mListenerGlobal : GetRemovedPostion
+class MainFragmentAdapter(var values: ArrayList<MainFragmentModel>) :
+    RecyclerView.Adapter<MainFragmentAdapter.MainFragmentHolder>(), ItemClickListener {
 
 
-    class MainFragmentHolder(itemView: MainFragmentRecylerviewRowBinding)
-        : RecyclerView.ViewHolder(itemView.root) {
+    private lateinit var mListenerGlobal: GetRemovedPostion
+
+
+    class MainFragmentHolder(itemView: MainFragmentRecylerviewRowBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
         var item = itemView
     }
 
@@ -38,20 +38,7 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
 
     override fun onBindViewHolder(holder: MainFragmentHolder, position: Int) {
         holder.item.model = values[position]
-
-        holder.itemView.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
-                values.get(position).zaehlerstandNach.toString(),
-                values.get(position).id.toString(),
-                values.get(position).price.toString(),
-                values.get(position).date.toString(),
-                values.get(position).zaehlerstandVor.toString(),
-                values.get(position).type.toString(),
-                values.get(position).zaehlerstandNach.toString(),
-                values.get(position).basePrice.toString()
-            )
-            Navigation.findNavController(it).navigate(action)
-        }
+        holder.item.listener = this
 
         longClickListener(holder)
     }
@@ -60,14 +47,14 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
         return values.size
     }
 
-    fun updateValues(datas : ArrayList<MainFragmentModel>) {
+    fun updateValues(datas: ArrayList<MainFragmentModel>) {
         values.clear()
         values = datas
         notifyDataSetChanged()
     }
 
-    fun longClickListener(holder : MainFragmentHolder){
-        holder.itemView.setOnLongClickListener(object : View.OnLongClickListener{
+    fun longClickListener(holder: MainFragmentHolder) {
+        holder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
                 mListenerGlobal.pos(values.get(holder.adapterPosition).id!!.toLong())
                 println("gelöscht")
@@ -75,14 +62,33 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
             }
         })
     }
-    interface GetRemovedPostion{
-        fun pos(pos : Long)
+
+    interface GetRemovedPostion {
+        fun pos(pos: Long)
     }
-    fun getItemRemovesPos(mListener : GetRemovedPostion){
+
+    fun getItemRemovesPos(mListener: GetRemovedPostion) {
         this.mListenerGlobal = mListener
     }
 
-
+    override fun itemClick(v: View) {
+        val id = v.main_fragment_id.text.toString().toLong()
+        values.forEach {
+            if (id == it.id) {
+                val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
+                    "0",
+                    it.id.toString(),
+                    it.price.toString(),
+                    it.date.toString(),
+                    it.zaehlerstandVor.toString(),
+                    it.type.toString(),
+                    it.zaehlerstandNach.toString(),
+                    it.basePrice.toString()
+                )
+                Navigation.findNavController(v).navigate(action)
+            }
+        }
+    }
 
 }
 
