@@ -22,7 +22,7 @@ class AddItemFragmentViewModel(application: Application) : BaseViewModel(applica
 
     fun calculateSwitch(b : Boolean,value : String) : Double{
         var result = 0.0
-        if(b){
+        if(b == false){
             result = value.toDouble() / 12.0
             return result
         } else {

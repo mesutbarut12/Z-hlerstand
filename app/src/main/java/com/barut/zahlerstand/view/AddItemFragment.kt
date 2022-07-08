@@ -102,11 +102,15 @@ class AddItemFragment : Fragment() {
                     zaehlerstandTextEnde!!
                 )
                 if (checkValues == true) {
+
+                    var getDataForSwitch = viewModel?.calculateSwitch(switch?.isChecked!!,
+                    basePriceText!!)
+
                     var model = MainFragmentModel(
                         null,
                         zaehlerstandTextAnfang,
                         zaehlerstandTextEnde,
-                        priceText, basePriceText,
+                        priceText, getDataForSwitch.toString(),
                         dateText, typeText,
                     )
                     viewModel!!.setDatasInSQLITE(arrayListOf(model))
