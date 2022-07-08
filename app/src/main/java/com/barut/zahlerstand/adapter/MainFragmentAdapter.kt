@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.databinding.MainFragmentRecylerviewRowBinding
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.view.MainFragmentDirections
 
@@ -18,20 +20,24 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
     private lateinit var mListenerGlobal : GetRemovedPostion
 
 
-    class MainFragmentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val date : TextView = itemView.findViewById(R.id.main_fragment_row_date)
-        val type : TextView = itemView.findViewById(R.id.main_fragment_row_type)
+    class MainFragmentHolder(itemView: MainFragmentRecylerviewRowBinding)
+        : RecyclerView.ViewHolder(itemView.root) {
+        var item = itemView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainFragmentHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.main_fragment_recylerview_row,parent,false)
+        val inflater = LayoutInflater.from(parent.context)
+        val view = DataBindingUtil.inflate<MainFragmentRecylerviewRowBinding>(
+            inflater,
+            R.layout.main_fragment_recylerview_row,
+            parent,
+            false
+        )
         return MainFragmentHolder(view)
     }
 
     override fun onBindViewHolder(holder: MainFragmentHolder, position: Int) {
-        holder.date.setText(values.get(position).date)
-        holder.type.setText(values.get(position).type)
+        holder.item.model = values[position]
 
         holder.itemView.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
