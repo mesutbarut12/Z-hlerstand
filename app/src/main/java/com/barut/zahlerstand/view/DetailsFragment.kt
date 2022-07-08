@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.databinding.FragmentDetailsBinding
+import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.viewmodel.DetailsFragmentViewModel
 
 class DetailsFragment : Fragment() {
+
+    private lateinit var dataBinding : FragmentDetailsBinding
 
     private var typeView : TextView? = null
     private var idView : TextView? = null
@@ -44,10 +49,11 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_details, container, false)
-        init(view)
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_details,
+        container,false)
+        init(dataBinding.root)
         getDataFromMainFragment()
-        return view
+        return dataBinding.root
     }
     private fun init(view : View){
         typeView = view.findViewById(R.id.details_fragment_type)
@@ -65,20 +71,22 @@ class DetailsFragment : Fragment() {
     }
     private fun getDataFromMainFragment(){
         arguments?.let {
-            type = DetailsFragmentArgs.fromBundle(it).type
-            id = DetailsFragmentArgs.fromBundle(it).id
-            kiloPrice = DetailsFragmentArgs.fromBundle(it).price
-            date = DetailsFragmentArgs.fromBundle(it).date
-            zaehlerstandAnfang = DetailsFragmentArgs.fromBundle(it).zaehlerstandAnfang
-            zaehlerstandEnde = DetailsFragmentArgs.fromBundle(it).zaehlerstandEnde
-            uuid = DetailsFragmentArgs.fromBundle(it).uuid
-            basePrice = DetailsFragmentArgs.fromBundle(it).basePrice
+            var model = MainFragmentModel(
+                DetailsFragmentArgs.fromBundle(it).id.toLong(),
+                DetailsFragmentArgs.fromBundle(it).zaehlerstandAnfang,
+                DetailsFragmentArgs.fromBundle(it).zaehlerstandEnde,
+                DetailsFragmentArgs.fromBundle(it).price,
+                DetailsFragmentArgs.fromBundle(it).basePrice,
+                DetailsFragmentArgs.fromBundle(it).date,
+                DetailsFragmentArgs.fromBundle(it).type
+            )
+            dataBinding.data = model
 
-            var consum = viewmodel?.getConsum(zaehlerstandAnfang!!, zaehlerstandEnde!!)
+            /*var consum = viewmodel?.getConsum(zaehlerstandAnfang!!, zaehlerstandEnde!!)
             var kiloPrice = viewmodel?.getKiloPrice(consum!!, kiloPrice!!)
-            var result = viewmodel?.getResult(kiloPrice!!,basePrice!!)
+            var result = viewmodel?.getResult(kiloPrice!!,basePrice!!)*/
 
-            typeView?.text = type
+           /* typeView?.text = type
             idView?.text = id
             priceView?.text = this.kiloPrice + "€"
             dateView?.text = date
@@ -87,7 +95,7 @@ class DetailsFragment : Fragment() {
             zaehlerstandVerbrauchView?.text = consum.toString() + " kWh"
             kiloPriceView?.text = kiloPrice + "€"
             basePriceView?.text = basePrice + "€"
-            resultView?.text = result + "€"
+            resultView?.text = result + "€"*/
         }
     }
 
