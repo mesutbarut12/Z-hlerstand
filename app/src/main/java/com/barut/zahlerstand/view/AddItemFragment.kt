@@ -54,6 +54,11 @@ class AddItemFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Toast.makeText(context,"View Created",Toast.LENGTH_SHORT).show()
+    }
+
     private fun initViews(view: View) {
         zahelerstandAnfang = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang)
         zahelerstandEnde = view.findViewById(R.id.add_item_fragment_zaehlerstand_ende)
@@ -169,9 +174,9 @@ class AddItemFragment : Fragment() {
     fun switchOptions() {
         switch?.setOnCheckedChangeListener { compoundButton, b ->
             if (b) {
-                Toast.makeText(context, "Jährlich", Toast.LENGTH_SHORT).show()
-            } else {
                 Toast.makeText(context, "Monatlich", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Jährlich", Toast.LENGTH_SHORT).show()
             }
         }
     }

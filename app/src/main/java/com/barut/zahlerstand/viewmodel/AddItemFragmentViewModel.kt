@@ -9,20 +9,24 @@ import kotlinx.coroutines.launch
 
 class AddItemFragmentViewModel(application: Application) : BaseViewModel(application) {
 
-    fun setDatasInSQLITE(model : ArrayList<MainFragmentModel>) {
+    fun setDatasInSQLITE(model: ArrayList<MainFragmentModel>) {
         launch {
             val dao = DatabaseZaehlerstand(getApplication()).dao()
             dao.insertAll(*model.toTypedArray())
         }
     }
 
-    fun checkAnfangValueNotBiggerEndeValue(anfang : String,ende : String) : Boolean{
-        return anfang.toDouble() < ende.toDouble()
+    fun checkAnfangValueNotBiggerEndeValue(anfang: String, ende: String?): Boolean {
+        if (ende == "") {
+           return true
+        } else {
+            return anfang.toDouble() < ende!!.toDouble()
+        }
     }
 
-    fun calculateSwitch(b : Boolean,value : String) : Double{
+    fun calculateSwitch(b: Boolean, value: String): Double {
         var result = 0.0
-        if(b == false){
+        if (b == false) {
             result = value.toDouble() / 12.0
             return result
         } else {

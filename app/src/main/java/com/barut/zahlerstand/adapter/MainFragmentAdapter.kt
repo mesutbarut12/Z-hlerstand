@@ -3,6 +3,7 @@ package com.barut.zahlerstand.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
     class MainFragmentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date : TextView = itemView.findViewById(R.id.main_fragment_row_date)
         val type : TextView = itemView.findViewById(R.id.main_fragment_row_type)
+        val update : ImageView = itemView.findViewById(R.id.main_fragment_row_update)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainFragmentHolder {
@@ -48,6 +50,7 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
         }
 
         longClickListener(holder)
+        checkZaehlerstandEndeHasValue(holder)
     }
 
     override fun getItemCount(): Int {
@@ -72,8 +75,15 @@ class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
     interface GetRemovedPostion{
         fun pos(pos : Long)
     }
-    fun getItemRemovesPos(mListener : GetRemovedPostion){
+    fun getItemRemovedPos(mListener : GetRemovedPostion){
         this.mListenerGlobal = mListener
+    }
+    private fun checkZaehlerstandEndeHasValue(holder : MainFragmentHolder){
+        if(values[holder.adapterPosition].zaehlerstandNach != ""){
+            holder.update.setImageResource(R.drawable.ic_update_good)
+        } else {
+            holder.update.setImageResource(R.drawable.ic_update_bad)
+        }
     }
 
 

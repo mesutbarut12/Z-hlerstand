@@ -46,6 +46,11 @@
         <argument
             android:name="basePrice"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/addItemFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"

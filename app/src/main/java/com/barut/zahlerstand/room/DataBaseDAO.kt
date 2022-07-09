@@ -22,5 +22,7 @@ interface DataBaseDAO {
     @Query("DELETE FROM MainFragmentModel WHERE id= :id1")
     suspend fun deleteItem(id1 : Long)
 
+    @Query("UPDATE MainFragmentModel SET zaehlerstandNach= :string WHERE ID= :id1")
+    suspend fun updateData(id1 : Long, string : String)
 
 }

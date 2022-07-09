@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
         viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
         recyclerView = view.findViewById(R.id.fragment_main_recylcerview)
     }
+
     private fun observeData() {
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(context!!)
@@ -49,21 +50,21 @@ class MainFragment : Fragment() {
             var arrayList = ArrayList(it)
             adapter.updateValues(arrayList)
         })
-
     }
 
-    private fun getItemRemodesPos(){
-       adapter.getItemRemovesPos(object : MainFragmentAdapter.GetRemovedPostion{
-           override fun pos(pos: Long) {
-               viewmodel?.deleteSpeciallyItem(pos)
-           }
-       })
+    private fun getItemRemodesPos() {
+        adapter.getItemRemovedPos(object : MainFragmentAdapter.GetRemovedPostion {
+            override fun pos(pos: Long) {
+                viewmodel?.deleteSpeciallyItem(pos)
+            }
+        })
     }
 
     private fun createMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menu.clear()
                 menuInflater.inflate(R.menu.main_fragment_menu, menu)
             }
 
