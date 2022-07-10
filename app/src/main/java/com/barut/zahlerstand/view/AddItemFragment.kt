@@ -11,21 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.barut.zahlerstand.DatePicker
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.databinding.FragmentAddItemBinding
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.viewmodel.AddItemFragmentViewModel
 
 class AddItemFragment : Fragment() {
 
-    private var zahelerstandAnfang: EditText? = null
-    private var zahelerstandEnde: EditText? = null
-    private var price: EditText? = null
-    private var date: EditText? = null
-    private var type: EditText? = null
-    private var buton: Button? = null
-    private var basePrice: EditText? = null
-    private var switch: Switch? = null
-    private var zaehlerstandDatumStart: EditText? = null
-    private var zaehlerstandDatumEnd: EditText? = null
+    private var _binding: FragmentAddItemBinding? = null
+    private val binding get() = _binding!!
 
     private var zaehlerstandTextAnfang: String? = null
     private var zaehlerstandTextEnde: String? = null
@@ -45,8 +38,8 @@ class AddItemFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_item, container, false)
-        initViews(view)
+        _binding = FragmentAddItemBinding.inflate(inflater, container, false)
+        val view = binding.root
         startFragment()
         dateClickListener()
         popUpMenu()
@@ -56,29 +49,16 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(context,"View Created",Toast.LENGTH_SHORT).show()
-    }
-
-    private fun initViews(view: View) {
-        zahelerstandAnfang = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang)
-        zahelerstandEnde = view.findViewById(R.id.add_item_fragment_zaehlerstand_ende)
-        price = view.findViewById(R.id.add_item_fragment_price_kilo)
-        date = view.findViewById(R.id.add_item_fragment_date)
-        type = view.findViewById(R.id.add_item_fragment_type)
-        buton = view.findViewById(R.id.add_item_fragment_save)
-        basePrice = view.findViewById(R.id.add_item_fragment_basePrice)
-        switch = view.findViewById(R.id.add_item_fragment_switch)
-        zaehlerstandDatumStart = view.findViewById(R.id.add_item_fragment_zaehlerstand_anfang_date)
-        zaehlerstandDatumEnd = view.findViewById(R.id.add_item_fragment_zaehlerstand_ende_date)
+        Toast.makeText(context, "View Created", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkInputIsCorrectly(): Boolean {
-        zaehlerstandTextAnfang = zahelerstandAnfang?.text.toString()
-        zaehlerstandTextEnde = zahelerstandEnde?.text.toString()
-        priceText = price?.text.toString()
-        dateText = date?.text.toString()
-        typeText = type?.text.toString()
-        basePriceText = basePrice?.text.toString()
+        zaehlerstandTextAnfang = binding.addItemFragmentZaehlerstandAnfang.text.toString()
+        zaehlerstandTextEnde = binding.addItemFragmentZaehlerstandEnde.text.toString()
+        priceText = binding.addItemFragmentPriceKilo.text.toString()
+        dateText = binding.addItemFragmentDate.text.toString()
+        typeText = binding.addItemFragmentType.text.toString()
+        basePriceText = binding.addItemFragmentBasePrice.text.toString()
 
         if (
             zaehlerstandTextAnfang!!.isNotEmpty() &&
@@ -99,7 +79,7 @@ class AddItemFragment : Fragment() {
 
     fun startFragment() {
         viewModel = ViewModelProvider(this).get(AddItemFragmentViewModel::class.java)
-        buton?.setOnClickListener {
+        binding.addItemFragmentSave.setOnClickListener {
             var checked = checkInputIsCorrectly()
             if (checked == true) {
                 var checkValues = viewModel?.checkAnfangValueNotBiggerEndeValue(
@@ -108,8 +88,10 @@ class AddItemFragment : Fragment() {
                 )
                 if (checkValues == true) {
 
-                    var getDataForSwitch = viewModel?.calculateSwitch(switch?.isChecked!!,
-                    basePriceText!!)
+                    var getDataForSwitch = viewModel?.calculateSwitch(
+                        binding.addItemFragmentSwitch.isChecked!!,
+                        basePriceText!!
+                    )
 
                     var model = MainFragmentModel(
                         null,
@@ -133,33 +115,33 @@ class AddItemFragment : Fragment() {
 
     fun dateClickListener() {
         var datepicker = DatePicker(context!!)
-        zaehlerstandDatumStart?.setText(datepicker.getTodaysDate().toString())
-        zaehlerstandDatumEnd?.setText(datepicker.getTodaysDate().toString())
-        date?.setText(datepicker.getTodaysDate().toString())
-        date?.setOnClickListener {
-            datepicker.initDatePicker(date!!)
+        binding.addItemFragmentZaehlerstandAnfangDate.setText(datepicker.getTodaysDate().toString())
+        binding.addItemFragmentZaehlerstandEndeDate.setText(datepicker.getTodaysDate().toString())
+        binding.addItemFragmentDate.setText(datepicker.getTodaysDate().toString())
+        binding.addItemFragmentDate.setOnClickListener {
+            datepicker.initDatePicker(binding.addItemFragmentDate)
         }
-        zaehlerstandDatumStart?.setOnClickListener {
-            datepicker.initDatePicker(zaehlerstandDatumStart!!)
+        binding.addItemFragmentZaehlerstandAnfangDate.setOnClickListener {
+            datepicker.initDatePicker(binding.addItemFragmentZaehlerstandAnfangDate)
         }
-        zaehlerstandDatumEnd?.setOnClickListener {
-            datepicker.initDatePicker(zaehlerstandDatumEnd!!)
+        binding.addItemFragmentZaehlerstandEndeDate.setOnClickListener {
+            datepicker.initDatePicker(binding.addItemFragmentZaehlerstandEndeDate)
         }
     }
 
     fun popUpMenu() {
-        type?.setOnClickListener {
+        binding.addItemFragmentType.setOnClickListener {
             var popupMenu: PopupMenu = PopupMenu(context, it)
             popupMenu.inflate(R.menu.add_item_fragment_pop_up_menu)
             popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
                 override fun onMenuItemClick(p0: MenuItem?): Boolean {
                     return when (p0?.itemId) {
                         R.id.add_item_fragment_pop_up_menu_strom -> {
-                            type?.setText("Strom")
+                            binding.addItemFragmentType.setText("Strom")
                             true
                         }
                         R.id.add_item_fragment_pop_up_menu_gas -> {
-                            type?.setText("Gas")
+                            binding.addItemFragmentType.setText("Gas")
                             true
                         }
                         else -> false
@@ -172,13 +154,18 @@ class AddItemFragment : Fragment() {
     }
 
     fun switchOptions() {
-        switch?.setOnCheckedChangeListener { compoundButton, b ->
+        binding.addItemFragmentSwitch.setOnCheckedChangeListener { compoundButton, b ->
             if (b) {
                 Toast.makeText(context, "Monatlich", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(context, "Jährlich", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
