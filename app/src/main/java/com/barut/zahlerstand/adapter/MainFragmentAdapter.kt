@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.view.MainFragmentDirections
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MainFragmentAdapter(var values : ArrayList<MainFragmentModel>)
+class MainFragmentAdapter @Inject constructor(var values : ArrayList<MainFragmentModel>)
     : RecyclerView.Adapter<MainFragmentAdapter.MainFragmentHolder>() {
 
 

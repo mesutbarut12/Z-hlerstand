@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id("androidx.navigation.safeargs.kotlin")
     id 'kotlin-kapt'
+    id ("dagger.hilt.android.plugin")
 }
 android {
     compileSdkVersion 32
@@ -62,13 +63,17 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     testImplementation("androidx.room:room-testing:$roomVersion")
 
+    //Corountines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3'
 
+    //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
-
-
-
-
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-android-compiler:2.42")
+}
+kapt {
+    correctErrorTypes = true
 }

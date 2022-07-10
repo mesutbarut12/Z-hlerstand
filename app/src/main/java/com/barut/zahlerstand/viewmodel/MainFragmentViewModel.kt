@@ -1,20 +1,18 @@
 package com.barut.zahlerstand.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.widget.Toast
-import androidx.core.content.contentValuesOf
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.barut.zahlerstand.model.MainFragmentModel
-import com.barut.zahlerstand.room.DataBaseDAO
 import com.barut.zahlerstand.room.DatabaseZaehlerstand
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainFragmentViewModel(application: Application) : BaseViewModel(application) {
+class MainFragmentViewModel @Inject
+constructor(application: Application) : BaseViewModel(application) {
 
     var liveData: MutableLiveData<List<MainFragmentModel>>? = MutableLiveData()
-    private val dao = DatabaseZaehlerstand(getApplication()).dao()
+    val dao = DatabaseZaehlerstand(getApplication()).dao()
 
     init {
         getAllDatasFromSQLite()

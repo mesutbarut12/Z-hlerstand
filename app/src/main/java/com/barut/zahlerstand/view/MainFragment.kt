@@ -7,23 +7,24 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.adapter.MainFragmentAdapter
 import com.barut.zahlerstand.databinding.FragmentMainBinding
 import com.barut.zahlerstand.viewmodel.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    var viewmodel: MainFragmentViewModel? = null
-    var adapter = MainFragmentAdapter(ArrayList())
+    @Inject lateinit var viewmodel: MainFragmentViewModel
+    private  var adapter : MainFragmentAdapter = MainFragmentAdapter(ArrayList())
 
 
     override fun onCreateView(
@@ -32,17 +33,12 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
-        init()
+        //init()
         observeData()
         createMenu()
         getItemRemodesPos()
         return view
 
-    }
-
-
-    private fun init() {
-        viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
     }
 
     private fun observeData() {
