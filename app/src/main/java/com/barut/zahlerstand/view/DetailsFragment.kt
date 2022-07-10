@@ -18,8 +18,10 @@ import com.barut.zahlerstand.R
 import com.barut.zahlerstand.databinding.FragmentDetailsBinding
 import com.barut.zahlerstand.viewmodel.DetailsFragmentViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
@@ -35,9 +37,8 @@ class DetailsFragment : Fragment() {
     private var zaehlerstandEnde: String? = ""
     private var uuid: String? = ""
     private var basePrice: String? = ""
-    private var result: String? = ""
 
-    private var viewmodel: DetailsFragmentViewModel? = null
+    @Inject lateinit var viewmodel: DetailsFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,6 @@ class DetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         val view = binding.root
-        init()
         return view
 
     }
@@ -59,10 +59,6 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getDataFromMainFragment()
         openAlertDialogWhenClick()
-    }
-
-    private fun init() {
-        viewmodel = ViewModelProvider(this).get(DetailsFragmentViewModel::class.java)
     }
 
     private fun getDataFromMainFragment() {

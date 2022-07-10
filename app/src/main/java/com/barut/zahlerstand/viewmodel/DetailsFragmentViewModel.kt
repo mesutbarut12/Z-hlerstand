@@ -3,8 +3,10 @@ package com.barut.zahlerstand.viewmodel
 import android.app.Application
 import com.barut.zahlerstand.room.DatabaseZaehlerstand
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailsFragmentViewModel(application: Application) : BaseViewModel(application) {
+class DetailsFragmentViewModel @Inject constructor(application: Application) :
+    BaseViewModel(application) {
 
     fun getConsum(zaehlerstandAnfang: String, zaehlerstandEnde: String?): String {
         if (zaehlerstandEnde == "") {
