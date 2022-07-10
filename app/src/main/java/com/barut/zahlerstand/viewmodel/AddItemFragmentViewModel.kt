@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.room.DatabaseZaehlerstand
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddItemFragmentViewModel(application: Application) : BaseViewModel(application) {
+class AddItemFragmentViewModel @Inject constructor(application: Application) : BaseViewModel(application) {
 
     fun setDatasInSQLITE(model: ArrayList<MainFragmentModel>) {
         launch {

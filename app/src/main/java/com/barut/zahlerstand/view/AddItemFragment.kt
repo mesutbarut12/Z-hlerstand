@@ -14,7 +14,10 @@ import com.barut.zahlerstand.R
 import com.barut.zahlerstand.databinding.FragmentAddItemBinding
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.viewmodel.AddItemFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddItemFragment : Fragment() {
 
     private var _binding: FragmentAddItemBinding? = null
@@ -27,7 +30,7 @@ class AddItemFragment : Fragment() {
     private var typeText: String? = null
     private var basePriceText: String? = null
 
-    private var viewModel: AddItemFragmentViewModel? = null
+    @Inject lateinit var viewModel: AddItemFragmentViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +81,6 @@ class AddItemFragment : Fragment() {
     }
 
     fun startFragment() {
-        viewModel = ViewModelProvider(this).get(AddItemFragmentViewModel::class.java)
         binding.addItemFragmentSave.setOnClickListener {
             var checked = checkInputIsCorrectly()
             if (checked == true) {
