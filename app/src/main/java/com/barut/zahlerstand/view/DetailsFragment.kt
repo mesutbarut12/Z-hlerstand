@@ -15,23 +15,17 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.barut.zahlerstand.R
+import com.barut.zahlerstand.databinding.FragmentDetailsBinding
 import com.barut.zahlerstand.viewmodel.DetailsFragmentViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class DetailsFragment : Fragment() {
 
-    private var typeView: TextView? = null
-    private var idView: TextView? = null
-    private var priceView: TextView? = null
-    private var dateView: TextView? = null
-    private var zaehlerstandAnfangView: TextView? = null
-    private var zaehlerstandEndeView: TextView? = null
-    private var zaehlerstandVerbrauchView: TextView? = null
-    private var kiloPriceView: TextView? = null
-    private var basePriceView: TextView? = null
-    private var resultView: TextView? = null
-    private var floatingButton : FloatingActionButton? = null
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
+
+
 
     private var type: String? = ""
     private var id: String? = ""
@@ -54,9 +48,11 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_details, container, false)
-        init(view)
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        init()
         return view
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,19 +61,7 @@ class DetailsFragment : Fragment() {
         openAlertDialogWhenClick()
     }
 
-    private fun init(view: View) {
-        typeView = view.findViewById(R.id.details_fragment_type)
-        idView = view.findViewById(R.id.details_fragment_id)
-        priceView = view.findViewById(R.id.details_fragment_price)
-        dateView = view.findViewById(R.id.details_fragment_date)
-        zaehlerstandAnfangView = view.findViewById(R.id.details_fragment_zaehlerstand_anfang)
-        zaehlerstandEndeView = view.findViewById(R.id.details_fragment_zaehlerstand_ende)
-        zaehlerstandVerbrauchView = view.findViewById(R.id.details_fragment_zaehlerstand_verbrauch)
-        kiloPriceView = view.findViewById(R.id.details_fragment_kilo_price)
-        basePriceView = view.findViewById(R.id.details_fragment_basePrice)
-        resultView = view.findViewById(R.id.details_fragment_result)
-        floatingButton = view.findViewById(R.id.details_fragment_floatingbutton)
-
+    private fun init() {
         viewmodel = ViewModelProvider(this).get(DetailsFragmentViewModel::class.java)
     }
 
@@ -97,31 +81,31 @@ class DetailsFragment : Fragment() {
                 var kiloPrice = viewmodel?.getKiloPrice(consum!!, kiloPrice!!)
                 var result = viewmodel?.getResult(kiloPrice!!, basePrice!!)
 
-                zaehlerstandVerbrauchView?.text = consum.toString() + " kWh"
-                kiloPriceView?.text = kiloPrice + "€"
-                resultView?.text = result + "€"
-                zaehlerstandEndeView?.text = zaehlerstandEnde + " kWh"
+                binding.detailsFragmentZaehlerstandVerbrauch.text = consum.toString() + " kWh"
+                binding.detailsFragmentKiloPrice.text = kiloPrice + "€"
+                binding.detailsFragmentResult.text = result + "€"
+                binding.detailsFragmentZaehlerstandEnde.text = zaehlerstandEnde + " kWh"
 
             } else {
-                zaehlerstandVerbrauchView?.text = ""
-                kiloPriceView?.text = ""
-                resultView?.text = ""
-                zaehlerstandEndeView?.text = ""
+                binding.detailsFragmentZaehlerstandVerbrauch?.text = ""
+                binding.detailsFragmentKiloPrice.text = ""
+                binding.detailsFragmentResult.text = ""
+                binding.detailsFragmentZaehlerstandEnde.text = ""
 
             }
-            typeView?.text = type
-            idView?.text = id
-            priceView?.text = this.kiloPrice + "€"
-            dateView?.text = date
-            zaehlerstandAnfangView?.text = zaehlerstandAnfang + " kWh"
-            basePriceView?.text = basePrice + "€"
+            binding.detailsFragmentType.text = type
+            binding.detailsFragmentId.text = id
+            binding.detailsFragmentPrice.text = this.kiloPrice + "€"
+            binding.detailsFragmentDate.text = date
+            binding.detailsFragmentZaehlerstandAnfang.text = zaehlerstandAnfang + " kWh"
+            binding.detailsFragmentBasePrice.text = basePrice + "€"
 
 
         }
     }
 
     private fun openAlertDialogWhenClick() {
-        floatingButton?.setOnClickListener {
+        binding.detailsFragmentFloatingbutton?.setOnClickListener {
             createAlertDialogForMenu()
         }
     }

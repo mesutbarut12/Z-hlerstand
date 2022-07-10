@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
             adapter.updateValues(arrayList)
         })
     }
-git
+
     private fun getItemRemodesPos() {
         adapter.getItemRemovedPos(object : MainFragmentAdapter.GetRemovedPostion {
             override fun pos(pos: Long) {
