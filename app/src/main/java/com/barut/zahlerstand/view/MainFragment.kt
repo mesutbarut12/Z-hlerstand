@@ -13,13 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.adapter.MainFragmentAdapter
+import com.barut.zahlerstand.databinding.FragmentMainBinding
 import com.barut.zahlerstand.viewmodel.MainFragmentViewModel
 
 
 class MainFragment : Fragment() {
 
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
     var viewmodel: MainFragmentViewModel? = null
-    var recyclerView: RecyclerView? = null
     var adapter = MainFragmentAdapter(ArrayList())
 
 
@@ -27,31 +30,31 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
-        init(view)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val view = binding.root
+        init()
         observeData()
         createMenu()
         getItemRemodesPos()
         return view
+
     }
 
 
-    private fun init(view: View) {
+    private fun init() {
         viewmodel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
-        recyclerView = view.findViewById(R.id.fragment_main_recylcerview)
     }
 
     private fun observeData() {
-        recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(context!!)
+        binding.fragmentMainRecylcerview.adapter = adapter
+        binding.fragmentMainRecylcerview.layoutManager = LinearLayoutManager(context!!)
 
         viewmodel?.liveData?.observe(viewLifecycleOwner, Observer {
             var arrayList = ArrayList(it)
             adapter.updateValues(arrayList)
         })
     }
-
+git
     private fun getItemRemodesPos() {
         adapter.getItemRemovedPos(object : MainFragmentAdapter.GetRemovedPostion {
             override fun pos(pos: Long) {
