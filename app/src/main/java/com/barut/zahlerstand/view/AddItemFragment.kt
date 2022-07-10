@@ -47,6 +47,7 @@ class AddItemFragment : Fragment() {
         dateClickListener()
         popUpMenu()
         switchOptions()
+        println("test")
         return view
     }
 
