@@ -40,6 +40,9 @@ interface DataBaseDAO {
     @Query("UPDATE MainFragmentModel SET date = :string WHERE ID= :id1")
     suspend fun updateDataBaseDate(id1 : Long, string : String)
 
+    @Query("UPDATE MainFragmentModel SET basePrice = :string WHERE ID= :id1")
+    suspend fun updateDataBaseBasePrice(id1 : Long, string : String)
+
 
 
 }

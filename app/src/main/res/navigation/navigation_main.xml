@@ -66,11 +66,11 @@
         android:name="com.barut.zahlerstand.view.DetailsUpdateFragment"
         android:label="fragment_details_update"
         tools:layout="@layout/fragment_details_update" >
-        <action
-            android:id="@+id/action_detailsUpdateFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailsUpdateFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.barut.zahlerstand.databinding.FragmentDetailsUpdateBinding
 import com.barut.zahlerstand.viewmodel.BaseViewModel
@@ -31,6 +33,7 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
     private var type: String = ""
     private var zaehlerstandAnfang: String = ""
     private var zaehlerstandEnde: String = ""
+    private var basePrice: String = ""
 
     @Inject
     lateinit var viewModel: DetailsUpdateFragmentViewModel
@@ -48,6 +51,7 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
         val view = binding.root
         getIdFromParent()
         whenClickSave()
+        switchListener()
         return view
     }
 
@@ -64,6 +68,8 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
         type = binding.detailsFragmentUpdateType.text.toString()
         zaehlerstandAnfang = binding.detailsFragmentUpdateBegin.text.toString()
         zaehlerstandEnde = binding.detailsFragmentUpdateEnd.text.toString()
+        basePrice = binding.detailsFragmentUpdateBaseprice.text.toString()
+
     }
 
     private fun whenClickSave() {
@@ -73,7 +79,8 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
                 date.isNotEmpty() ||
                 type.isNotEmpty() ||
                 zaehlerstandAnfang.isNotEmpty() ||
-                zaehlerstandEnde.isNotEmpty()
+                zaehlerstandEnde.isNotEmpty() ||
+                basePrice.isNotEmpty()
             ) {
                 if (kiloPrice.isNotEmpty())
                     viewModel.updateDataPrice(idFromParent!!.toLong(), kiloPrice)
@@ -85,17 +92,14 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
                     viewModel.updateDataZaehlerstandVor(idFromParent!!.toLong(), zaehlerstandAnfang)
                 if (zaehlerstandEnde.isNotEmpty())
                     viewModel.updateDataZaehlerstandNach(idFromParent!!.toLong(), zaehlerstandEnde)
+                if(basePrice.isNotEmpty()){
+                    var value = viewModel.calculateSwitch(binding.detailsFragmentUpdateSwitch.isChecked,
+                    basePrice)
+                    viewModel.updateDataBasePrice(idFromParent!!.toLong(),value.toString())
+                }
                 launch {
-                    var data = viewModel.getDetailsData(idFromParent!!.toLong())
-                    val action = DetailsUpdateFragmentDirections.actionDetailsUpdateFragmentToDetailsFragment(
-                        data?.id.toString(),
-                        data?.price.toString(),
-                        data?.date.toString(),
-                        data?.zaehlerstandVor.toString(),
-                        data?.type.toString(),
-                        data?.zaehlerstandNach.toString(),
-                        data?.basePrice.toString()
-                    )
+                    val action =
+                        DetailsUpdateFragmentDirections.actionDetailsUpdateFragmentToMainFragment()
                     Navigation.findNavController(it).navigate(action)
                 }
             }
@@ -111,4 +115,13 @@ class DetailsUpdateFragment : Fragment(), CoroutineScope {
         get() = job + Dispatchers.Main
 
 
+    private fun switchListener(){
+        binding.detailsFragmentUpdateSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                Toast.makeText(context, "Monatlich", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Jährlich", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
