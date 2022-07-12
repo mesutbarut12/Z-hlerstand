@@ -1,4 +1,4 @@
-package com.barut.zahlerstand
+package com.barut.zahlerstand.util
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog

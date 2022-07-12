@@ -2,22 +2,14 @@ package com.barut.zahlerstand.view
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.barut.zahlerstand.R
 import com.barut.zahlerstand.databinding.FragmentDetailsBinding
 import com.barut.zahlerstand.viewmodel.DetailsFragmentViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,11 +20,10 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
-    private var type: String? = ""
-    private var id: String? = ""
     private var kiloPrice: String? = ""
     private var date: String? = ""
+    private var id: String? = ""
+    private var type: String? = ""
     private var zaehlerstandAnfang: String? = ""
     private var zaehlerstandEnde: String? = ""
     private var uuid: String? = ""
@@ -69,7 +60,6 @@ class DetailsFragment : Fragment() {
             date = DetailsFragmentArgs.fromBundle(it).date
             zaehlerstandAnfang = DetailsFragmentArgs.fromBundle(it).zaehlerstandAnfang
             zaehlerstandEnde = DetailsFragmentArgs.fromBundle(it).zaehlerstandEnde
-            uuid = DetailsFragmentArgs.fromBundle(it).uuid
             basePrice = DetailsFragmentArgs.fromBundle(it).basePrice
 
             var consum = viewmodel?.getConsum(zaehlerstandAnfang!!, zaehlerstandEnde!!)
@@ -102,46 +92,12 @@ class DetailsFragment : Fragment() {
 
     private fun openAlertDialogWhenClick() {
         binding.detailsFragmentFloatingbutton?.setOnClickListener {
-            createAlertDialogForMenu()
+            val action = DetailsFragmentDirections.actionDetailsFragmentToDetailsUpdateFragment(id!!)
+            Navigation.findNavController(it).navigate(action)
         }
     }
 
-    fun createAlertDialogForMenu() {
-        if (activity != null) {
-            val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            alertDialog.setTitle("Zählerstand ende hinzufügen")
-            val editText = EditText(requireContext())
-            editText.setHint("Zählerstand eingeben")
-            alertDialog.setView(editText)
-            alertDialog.setPositiveButton("Speichern", object : DialogInterface.OnClickListener {
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                    if (editText.text.toString() > zaehlerstandAnfang!!) {
-                        viewmodel?.updateDataInSQLite(id!!.toLong(), editText.text.toString())
-                        val action = DetailsFragmentDirections.actionDetailsFragmentToMainFragment()
-                        Navigation.findNavController(view!!).navigate(action)
-                    } else {
-                        Toast.makeText(
-                            requireContext(), "Ende zählerstand muss größer als der anfang sein",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }).setNegativeButton("Abbrechen", object : DialogInterface.OnClickListener {
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                    Toast.makeText(requireContext(), "abgeborchen", Toast.LENGTH_SHORT).show()
 
-                }
-
-            }).setOnCancelListener {
-                it.cancel()
-                Toast.makeText(requireContext(), "Gecancelt", Toast.LENGTH_SHORT).show()
-            }
-            val create = alertDialog.create()
-            create.show()
-        } else {
-
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

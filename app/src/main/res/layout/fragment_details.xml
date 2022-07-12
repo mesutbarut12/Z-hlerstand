@@ -48,7 +48,7 @@
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintBottom_toTopOf="@+id/details_fragment_cardview2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent">
@@ -208,13 +208,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+                android:id="@+id/details_fragment_cardview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toTopOf="@+id/cardView2"
+                app:layout_constraintBottom_toTopOf="@+id/details_fragment_cardview3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/details_fragment_cardview">
@@ -334,7 +334,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/details_fragment_cardview3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="5dp"
@@ -343,7 +343,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView">
+                app:layout_constraintTop_toBottomOf="@+id/details_fragment_cardview2">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

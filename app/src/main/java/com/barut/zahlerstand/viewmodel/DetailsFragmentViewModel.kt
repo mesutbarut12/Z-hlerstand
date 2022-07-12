@@ -30,13 +30,6 @@ class DetailsFragmentViewModel @Inject constructor(application: Application) :
         return roundDouble(result)
     }
 
-    fun updateDataInSQLite(id: Long, value: String) {
-        launch {
-            val dao = DatabaseZaehlerstand(getApplication()).dao()
-            dao.updateData(id, value)
-        }
-    }
-
     fun roundDouble(number : Double) : String{
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING

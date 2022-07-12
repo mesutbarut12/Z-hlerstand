@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.barut.zahlerstand.model.MainFragmentModel
 import com.barut.zahlerstand.room.DatabaseZaehlerstand
 import kotlinx.coroutines.launch
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class AddItemFragmentViewModel @Inject constructor(application: Application) : BaseViewModel(application) {
@@ -29,9 +31,15 @@ class AddItemFragmentViewModel @Inject constructor(application: Application) : B
         var result = 0.0
         if (b == false) {
             result = value.toDouble() / 12.0
-            return result
+            return roundDouble(result)
         } else {
-            return value.toDouble()
+            result = value.toDouble()
+            return roundDouble(result)
         }
+    }
+    fun roundDouble(number : Double) : Double{
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        return (df.format(number).toDouble())
     }
 }

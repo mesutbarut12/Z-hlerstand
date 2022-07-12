@@ -14,7 +14,7 @@ interface DataBaseDAO {
     suspend fun getAllDatas() : List<MainFragmentModel>
 
     @Query("SELECT * FROM MainFragmentModel WHERE id= :id1")
-    suspend fun getData(id1 : String) : MainFragmentModel
+    suspend fun getData(id1 : Long) : MainFragmentModel
 
     @Query("DELETE FROM MainFragmentModel")
     suspend fun deleteAll()
@@ -22,7 +22,24 @@ interface DataBaseDAO {
     @Query("DELETE FROM MainFragmentModel WHERE id= :id1")
     suspend fun deleteItem(id1 : Long)
 
-    @Query("UPDATE MainFragmentModel SET zaehlerstandNach= :string WHERE ID= :id1")
-    suspend fun updateData(id1 : Long, string : String)
+    @Query("UPDATE MainFragmentModel SET zaehlerstandVor = :string WHERE ID= :id1")
+    suspend fun updateDataZaehlerstandVor(id1 : Long, string : String)
+
+    @Query("UPDATE MainFragmentModel SET zaehlerstandNach = :string WHERE ID= :id1")
+    suspend fun updateDataZaehlerstandNach(id1 : Long, string : String)
+
+    @Query("UPDATE MainFragmentModel SET price = :string WHERE ID= :id1")
+    suspend fun updateDataPrice(id1 : Long, string : String)
+
+    @Query("UPDATE MainFragmentModel SET basePrice = :string WHERE ID= :id1")
+    suspend fun updateDataBasePrice(id1 : Long, string : String)
+
+    @Query("UPDATE MainFragmentModel SET type = :string WHERE ID= :id1")
+    suspend fun updateDataBaseType(id1 : Long, string : String)
+
+    @Query("UPDATE MainFragmentModel SET date = :string WHERE ID= :id1")
+    suspend fun updateDataBaseDate(id1 : Long, string : String)
+
+
 
 }

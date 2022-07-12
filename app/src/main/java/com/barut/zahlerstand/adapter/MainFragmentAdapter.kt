@@ -39,7 +39,6 @@ class MainFragmentAdapter @Inject constructor(var values : ArrayList<MainFragmen
 
         holder.itemView.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToDetailsFragment(
-                values.get(position).zaehlerstandNach.toString(),
                 values.get(position).id.toString(),
                 values.get(position).price.toString(),
                 values.get(position).date.toString(),
